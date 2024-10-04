@@ -1,0 +1,15 @@
+<jaxb:bindings xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xjc="https://jakarta.ee/xml/ns/jakartaee"
+               jaxb:version="3.0">
+
+<!--    <xjc:bindings schemaLocation="src.main.resources.xsd.transfer_order.xsd" node="/xs:schema/xs:complexType[@name='Request']">-->
+    <xjc:bindings schemaLocation="src.main.resources.xsd.transfer_order.xsd" node="/xs:schema/xs:complexType[@name='Request']">
+        <xjc:class>
+            <xjc:annotate>
+                <xjc:javaType>
+                    <xjc:annotation>@lombok.Data</xjc:annotation>
+                </xjc:javaType>
+            </xjc:annotate>
+        </xjc:class>
+    </xjc:bindings>
+</jaxb:bindings>

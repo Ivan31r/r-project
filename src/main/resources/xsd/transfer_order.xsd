@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.mmba.emu.le.com/transfer_order"
+            xmlns="http://www.mmba.emu.le.com/transfer_order"
+            elementFormDefault="qualified">
+    <xsd:element name="Request">
+        <xsd:complexType>
+            <xsd:complexContent>
+                <xsd:restriction base="xsd:anyType">
+                    <xsd:sequence>
+                        <xsd:element name="Head">
+                            <xsd:complexType>
+                                <xsd:complexContent>
+                                    <xsd:restriction base="xsd:anyType">
+                                        <xsd:sequence>
+                                            <xsd:element name="DateCreate" type="xsd:dateTime"/>
+                                            <xsd:element name="ProcessID" type="StNotEmptyString"/>
+                                            <xsd:element name="Service" type="StNotEmptyString"/>
+                                            <xsd:element name="ServOperation" type="StNotEmptyString"/>
+                                        </xsd:sequence>
+                                    </xsd:restriction>
+                                </xsd:complexContent>
+                            </xsd:complexType>
+                        </xsd:element>
+                        <xsd:element name="Data">
+                            <xsd:complexType>
+                                <xsd:complexContent>
+                                    <xsd:restriction base="xsd:anyType">
+                                        <xsd:all>
+                                            <xsd:element name="DisposeType">
+                                                <xsd:simpleType>
+                                                    <xsd:restriction base="xsd:string">
+                                                        <xsd:enumeration value="MONEY_REDISTRIBUTION_REMOTELY"/>
+                                                        <xsd:enumeration value="MONEY_REDISTRIBUTION_REMOTELY_KUA"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleType>
+                                            </xsd:element>
+                                            <xsd:element name="GKK" type="xsd:int"/>
+                                            <xsd:element name="OrderSourceSystem" type="StNotEmptyString"/>
+                                            <xsd:element name="SourceSystemOrderId" type="StNotEmptyString"/>
+                                            <xsd:element name="AgreementNumber" type="xsd:string"/>
+                                            <xsd:element name="AgreementType">
+                                                <xsd:simpleType>
+                                                    <xsd:restriction base="xsd:string">
+                                                        <xsd:enumeration value="BrokerContract"/>
+                                                        <xsd:enumeration value="IndividualContract"/>
+                                                    </xsd:restriction>
+                                                </xsd:simpleType>
+                                            </xsd:element>
+                                            <xsd:element name="SourceDiasoftCode" type="StNotEmptyString"/>
+                                            <xsd:element name="DestinationDiasoftCode" type="xsd:string" minOccurs="0"/>
+                                            <xsd:element name="SourcePlace" type="xsd:int"/>
+                                            <xsd:element name="DestinationPlace" type="StIntOrEmpty" minOccurs="0"/>
+                                            <xsd:element name="Ammount" type="StDecimalOrEmpty" minOccurs="0"/>
+                                            <xsd:element name="Currency" type="StCurrencyCode"/>
+                                            <xsd:element name="IsAll" type="xsd:boolean" minOccurs="0"/>
+                                            <xsd:element name="Account" minOccurs="0">
+                                                <xsd:complexType>
+                                                    <xsd:complexContent>
+                                                        <xsd:restriction base="xsd:anyType">
+                                                            <xsd:sequence/>
+                                                            <xsd:attribute name="WithdrawalType">
+                                                                <xsd:simpleType>
+                                                                    <xsd:restriction base="xsd:int">
+                                                                        <xsd:enumeration value="1"/>
+                                                                        <xsd:enumeration value="2"/>
+                                                                    </xsd:restriction>
+                                                                </xsd:simpleType>
+                                                            </xsd:attribute>
+                                                            <xsd:attribute name="Account" type="StAccount408"/>
+                                                            <xsd:attribute name="Currency" type="xsd:string"/>
+                                                            <xsd:attribute name="BankName" type="xsd:string"/>
+                                                            <xsd:attribute name="BIK" type="xsd:string"/>
+                                                            <xsd:attribute name="SWIFT" type="xsd:string"/>
+                                                            <xsd:attribute name="CorAccount" type="xsd:string"/>
+                                                            <xsd:attribute name="ITMSWIFT" type="xsd:string"/>
+                                                            <xsd:attribute name="ITMName" type="xsd:string"/>
+                                                            <xsd:attribute name="ITMAccount" type="xsd:string"/>
+                                                            <xsd:attribute name="PaymentDetails" type="xsd:string"/>
+                                                            <xsd:attribute name="Comment" type="xsd:string"/>
+                                                        </xsd:restriction>
+                                                    </xsd:complexContent>
+                                                </xsd:complexType>
+                                            </xsd:element>
+                                        </xsd:all>
+                                    </xsd:restriction>
+                                </xsd:complexContent>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:restriction>
+            </xsd:complexContent>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:simpleType name="StAccount20">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="\d{20}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="StAccount408">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="407\d{17}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="StClientCode">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="\d{8}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="StCurrencyCode">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="\d{3}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="StIntOrEmpty">
+        <xsd:restriction base="xsd:string">
+            <xsd:pattern value="\d*|\s{0}"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="StNotEmptyString">
+        <xsd:restriction base="xsd:string">
+            <xsd:minLength value="1"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="StDecimalOrEmpty">
+        <xsd:union>
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:length value="0"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:decimal"/>
+            </xsd:simpleType>
+        </xsd:union>
+    </xsd:simpleType>
+</xsd:schema>
